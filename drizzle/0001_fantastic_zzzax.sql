@@ -1,0 +1,1 @@
+ALTER TABLE `rooms` ADD `generation` integer DEFAULT 0 NOT NULL;
