@@ -47,6 +47,21 @@ git push -u origin main
 
 이 프로젝트는 서버와 공용 데이터베이스가 필요한 전체 소스입니다. **GitHub에 업로드하는 것만으로 서비스가 배포되지는 않습니다. GitHub Pages용 정적 HTML이나 Vercel 전용 프로젝트가 아닙니다.**
 현재 제공한 사이트는 ChatGPT Sites에서 실행됩니다. 다른 호스팅으로 이전할 때는 Worker와 D1 데이터베이스를 별도로 연결해야 합니다.
+
+### 배포 주소
+
+- 앱(Cloudflare Workers + D1): https://seoul-wordcloud-zoom.metislab79.workers.dev
+- Vercel: https://seoul-wordcloud-zoom.vercel.app → 위 Cloudflare 주소로 리다이렉트
+
+이 앱은 D1 데이터베이스를 사용하므로 Vercel에서 직접 실행할 수 없습니다. `vercel.json`은 빌드를 건너뛰고 모든 요청을 Cloudflare 사이트로 리다이렉트하며, `.vercelignore`로 `public/`과 `vercel.json`만 올립니다. Worker 주소가 바뀌면 `vercel.json`의 `destination`도 함께 바꿔 주세요.
+
+```bash
+pnpm install
+pnpm exec wrangler login   # 최초 1회, 브라우저에서 Cloudflare 계정 승인
+pnpm deploy:cf
+```
+
+`pnpm deploy:cf`는 D1 데이터베이스 생성(없을 때만), `drizzle/` 마이그레이션 적용, 빌드, 배포를 차례로 실행합니다. 생성된 D1 ID는 `cloudflare.deploy.json`에 저장되며 비밀값이 아니므로 커밋해도 됩니다.
 GitHub용 ZIP에는 사용자 계정에 연결된 Sites 프로젝트 ID, 실행 데이터, 진행자 링크, 인증 토큰이 포함되어 있지 않습니다.
 
 ```bash

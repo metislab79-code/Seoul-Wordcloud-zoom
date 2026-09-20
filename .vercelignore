@@ -1,0 +1,4 @@
+# Vercel only serves the redirect in vercel.json; the app runs on Cloudflare.
+/*
+!/public
+!/vercel.json

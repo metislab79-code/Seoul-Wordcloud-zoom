@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "",
+  "buildCommand": "",
+  "outputDirectory": "public",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://seoul-wordcloud-zoom.metislab79.workers.dev/$1",
+      "permanent": false
+    }
+  ]
+}
